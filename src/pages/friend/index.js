@@ -1,11 +1,15 @@
 import React, { memo } from 'react';
 
-const HYFriend = memo(() => {
-  return (
-    <div>
-      <h2>HYFriend</h2>
-    </div>
-  );
-});
+import { FriendWrapper } from './style';
 
-export default HYFriend;
+export default memo(function HYFriend() {
+  return (
+    <FriendWrapper>
+      <div className="content wrap-v2">
+        <div className="pic">
+          <a className="login" href="/#">立即登录</a>
+        </div>
+      </div>
+    </FriendWrapper>
+  )
+})

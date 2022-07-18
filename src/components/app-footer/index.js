@@ -1,14 +1,17 @@
-import React, { memo, Fragment } from 'react'
+import React, { Fragment, memo } from 'react';
 
-import { footerLinks, footerImages } from "@/common/local-data";
+import {
+  footerLinks,
+  footerImages
+} from "@/services/local-data";
 
 import {
   AppFooterWrapper,
   FooterLeft,
-  FooterRight,
-} from './style';
+  FooterRight
+} from "./style";
 
-const HYAppFooter = memo(() => {
+export default memo(function HYAppFooter() {
   return (
     <AppFooterWrapper>
       <div className="wrap-v2 content">
@@ -60,7 +63,5 @@ const HYAppFooter = memo(() => {
         </FooterRight>
       </div>
     </AppFooterWrapper>
-  );
-});
-
-export default HYAppFooter;
+  )
+})

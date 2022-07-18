@@ -1,21 +1,21 @@
-import React, { memo } from 'react'
+import React, { memo } from 'react';
+import { NavLink } from "react-router-dom";
+import classnames from "classnames";
 
-import { headerLinks } from '@/common/local-data';
+import { headerLinks } from "@/services/local-data";
 
-import { NavLink } from 'react-router-dom';
+import { Input } from "antd";
 import { SearchOutlined } from '@ant-design/icons';
-import { Input } from 'antd';
 
 import {
-  HeaderWrapper,
+  AppHeaderWrapper,
   HeaderLeft,
-  HeaderRight,
-} from './style';
+  HeaderRight
+} from "./style";
 
-const HYAppHeader = memo(() => {
+export default memo(function HYAppHeader() {
 
-  // 页面代码
-  const showSelectItem = (item, index) => {
+  const showItem = (item, index) => {
     if (index < 3) {
       return (
         <NavLink to={item.link}>
@@ -24,22 +24,21 @@ const HYAppHeader = memo(() => {
         </NavLink>
       )
     } else {
-      return <a href={item.link}>{item.title}</a>
+      return <a href={item.link} target="_blank" rel="noopener noreferrer">{item.title}</a>
     }
   }
 
-  // 返回的jsx
   return (
-    <HeaderWrapper>
-      <div className='content wrap-v1'>
+    <AppHeaderWrapper>
+      <div className="wrap-v1 content">
         <HeaderLeft>
-          <a href="#/" className='logo sprite_01'>网易云音乐</a>
-          <div className='select-list'>
+          <a className="logo sprite_01" href="#/">网易云音乐</a>
+          <div className="select-list">
             {
               headerLinks.map((item, index) => {
                 return (
-                  <div key={item.title} className="select-item">
-                    {showSelectItem(item, index)}
+                  <div className={classnames("select-item")} key={item.title}>
+                    {showItem(item, index)}
                   </div>
                 )
               })
@@ -47,14 +46,12 @@ const HYAppHeader = memo(() => {
           </div>
         </HeaderLeft>
         <HeaderRight>
-          <Input className='search' placeholder='音乐/视频/电台/用户' prefix={<SearchOutlined />} />
-          <div className='center'>创作者中心</div>
-          <div>登录</div>
+          <Input className="search" placeholder="音乐/视频/电台/用户" prefix={<SearchOutlined />} />
+          <div className="center">创作者中心</div>
+          <div className="">登录</div>
         </HeaderRight>
       </div>
-      <div className='divider'></div>
-    </HeaderWrapper>
-  );
-});
-
-export default HYAppHeader;
+      <div className="divider"></div>
+    </AppHeaderWrapper>
+  )
+})

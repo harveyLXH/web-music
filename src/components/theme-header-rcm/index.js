@@ -1,10 +1,13 @@
-import React, { memo } from 'react';
-import PropTypes from 'prop-types';
+import React, {memo} from 'react';
+import PropTypes from "prop-types";
 
-import { HeaderWrapper } from './style';
+import { Link } from 'react-router-dom';
+import {
+  HeaderWrapper
+} from "./style";
 
-const HYThemeHeaderRCM = memo((props) => {
-  const { title, keywords } = props;
+const HYThemeHeaderRCM = memo(function(props) {
+  const { title, keywords, moreLink, keywordClick } = props;
 
   return (
     <HeaderWrapper className="sprite_02">
@@ -15,7 +18,7 @@ const HYThemeHeaderRCM = memo((props) => {
             keywords.map((item, index) => {
               return (
                 <div className="item" key={item}>
-                  <a href="todo">{item}</a>
+                  <span className="link" onClick={e => keywordClick(item)}>{item}</span>
                   <span className="divider">|</span>
                 </div>
               )
@@ -24,20 +27,20 @@ const HYThemeHeaderRCM = memo((props) => {
         </div>
       </div>
       <div className="right">
-        <a href="todo">更多</a>
+        <Link to={moreLink}>更多</Link>
         <i className="icon sprite_02"></i>
       </div>
     </HeaderWrapper>
   )
 })
 
-HYThemeHeaderRCM.prototype = {
-  title: PropTypes.string.isRequired,
-  keywords: PropTypes.array
-}
-
 HYThemeHeaderRCM.defaultProps = {
   keywords: []
 }
 
-export default HYThemeHeaderRCM
+HYThemeHeaderRCM.propTypes = {
+  title: PropTypes.string.isRequired,
+  keywords: PropTypes.array
+}
+
+export default HYThemeHeaderRCM;

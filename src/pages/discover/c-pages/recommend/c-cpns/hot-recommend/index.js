@@ -1,45 +1,49 @@
-import React, { memo, useEffect } from 'react'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-
-import { HOT_RECOMMEND_LIMIT } from '@/common/contants';
-
-import HYThemeHeaderRCM from '@/components/theme-header-rcm';
-import HYSongsCover from '@/components/songs-cover';
+import React, { useEffect, memo, useCallback } from 'react';
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { useHistory } from 'react-router-dom';
 
 import {
-  HotRecommendWrapper
-} from './style';
-import { getHotRecommendAction } from '../../store/actionCreators';
+  getRecommend
+} from "../../store/actionCreators";
 
+import { 
+  RecommendWrapper
+} from "./style";
 
-const HYHotRecommend = memo(() => {
-  // state
+import HYThemeHeaderRCM from '@/components/theme-header-rcm';
+import HYThemeCover from '@/components/theme-cover';
 
-  // redux hooks
-  const { hotRecommends } = useSelector(state => ({
-    hotRecommends: state.getIn(["recommend", "hotRecommends"]),
+export default memo(function HYHotRecommend() {
+  // redux
+  const state = useSelector(state => ({
+    recommends: state.getIn(["recommend", "hotRecommends"])
   }), shallowEqual);
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  //other hooks
   useEffect(() => {
-    dispatch(getHotRecommendAction(HOT_RECOMMEND_LIMIT));
+    dispatch(getRecommend())
   }, [dispatch]);
 
+  const keywordClick = useCallback((keyword) => {
+    history.push({pathname: "/discover/songs", cat: keyword});
+  }, [history]);
+
   return (
-    <HotRecommendWrapper>
-      <HYThemeHeaderRCM title="热门推荐" keywords={["华语", "流行", "民谣", "摇滚", "电子"]} />
+    <RecommendWrapper>
+      <HYThemeHeaderRCM title="热门推荐" 
+                        keywords={["华语", "流行", "摇滚", "民谣", "电子"]}
+                        moreLink="/discover/songs"
+                        keywordClick={keywordClick}/>
       <div className="recommend-list">
         {
-          hotRecommends.map((item, index) => {
+          state.recommends.slice(0, 8).map((item, index) => {
             return (
-              <HYSongsCover key={item.id} info={item} />
+              <HYThemeCover info={item} key={item.id}/>
             )
           })
         }
       </div>
-    </HotRecommendWrapper>
+    </RecommendWrapper>
   )
 })
-
-export default HYHotRecommend

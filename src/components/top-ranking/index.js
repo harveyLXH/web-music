@@ -1,15 +1,15 @@
-import React, { memo } from 'react'
-
-import { getSizeImage } from '@/utils/format-utils';
-import { getSongDetailAction } from '@/pages/player/store'
-
-import { TopRankingWrapper } from './style'
+import React, { memo } from 'react';
 import { useDispatch } from 'react-redux';
 
-const HYTopRanking = memo((props) => {
+import { getSizeImage } from '@/utils/format-utils';
+import { getSongDetailAction } from '@/pages/player/store';
+
+import { TopRankingWrapper } from './style';
+
+export default memo(function HYTopRanking(props) {
   // props and state
-  const  { info } = props;
-  const  { tracks = [] } = info;
+  const { info } = props;
+  const { tracks = [] } = info;
 
   // redux hooks
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const HYTopRanking = memo((props) => {
     <TopRankingWrapper>
       <div className="header">
         <div className="image">
-          <img src={getSizeImage(info.coverImgUrl)} alt=""/>
+          <img src={getSizeImage(info.coverImgUrl)} alt="" />
           <a href="/todo" className="image_cover">ranking</a>
         </div>
         <div className="info">
@@ -43,7 +43,7 @@ const HYTopRanking = memo((props) => {
                 <div className="info">
                   <span className="name text-nowrap">{item.name}</span>
                   <div className="operate">
-                    <button className="btn sprite_02 play"
+                    <button className="btn sprite_02 play" 
                             onClick={e => playMusic(item)}></button>
                     <button className="btn sprite_icon2 addto"></button>
                     <button className="btn sprite_02 favor"></button>
@@ -55,10 +55,8 @@ const HYTopRanking = memo((props) => {
         }
       </div>
       <div className="footer">
-      <a href="/todo">查看全部 &gt;</a>
+        <a href="/todo">查看全部 &gt;</a>
       </div>
     </TopRankingWrapper>
   )
 })
-
-export default HYTopRanking

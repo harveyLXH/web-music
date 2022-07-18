@@ -1,27 +1,28 @@
-import React, { memo } from 'react'
+import React, { memo } from 'react';
 
+import HYPlayerInfo from './c-cpns/player-info';
+import HYPlayerComment from './c-cpns/player-comment';
+import HYPlayerSongs from './c-cpns/player-songs';
+import HYPlayerRelevant from './c-cpns/player-relevant';
 import {
   PlayerWrapper,
   PlayerLeft,
-  PlayerRight,
+  PlayerRight
 } from './style';
 
-const HYPlayer = memo(() => {
+export default memo(function HYPlayer() {
   return (
     <PlayerWrapper>
       <div className="content wrap-v2">
         <PlayerLeft>
-          <h2>HyPlayerInfo</h2>
-          <h2>HYSongContent</h2>
+          <HYPlayerInfo/>
+          <HYPlayerComment/>
         </PlayerLeft>
         <PlayerRight>
-          <h2>HYSimiPlaylist</h2>
-          <h2>HYSimiSongs</h2>
-          <h2>Download</h2>
+          <HYPlayerSongs/>
+          <HYPlayerRelevant/>
         </PlayerRight>
       </div>
     </PlayerWrapper>
   )
 })
-
-export default HYPlayer
